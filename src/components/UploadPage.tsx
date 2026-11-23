@@ -36,6 +36,7 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
     base64: string;
   } | null>(null);
   const [isDragging, setIsDragging] = useState(false);
+  const [isReadingFile, setIsReadingFile] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const [submittedResult, setSubmittedResult] = useState<{
@@ -69,8 +70,10 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
       return;
     }
 
+    setIsReadingFile(true);
     const reader = new FileReader();
     reader.onload = () => {
+      setIsReadingFile(false);
       if (typeof reader.result === 'string') {
         setSelectedFile({
           name: file.name,
@@ -79,6 +82,10 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
         });
       }
     };
+    reader.onerror = () => {
+      setIsReadingFile(false);
+      setErrorMessage('Gagal membaca berkas. Pastikan berkas tidak rusak dan coba lagi.');
+    };
     reader.readAsDataURL(file);
   };
 
@@ -86,6 +93,10 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
     e.preventDefault();
     setErrorMessage(null);
 
+    if (isReadingFile) {
+      setErrorMessage('Berkas sedang diproses, tunggu sebentar sebelum mengirim.');
+      return;
+    }
     if (authorName.trim().length < 3) {
       setErrorMessage('Masukkan nama lengkap sesuai SIAKAD.');
       return;
@@ -98,7 +109,20 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
       setErrorMessage('Judul e-modul minimal 5 karakter.');
       return;
     }
-    if (!selectedFile && !externalUrl.trim()) {
+    const trimmedUrl = externalUrl.trim();
+    if (trimmedUrl) {
+      try {
+        const parsed = new URL(trimmedUrl);
+        if (parsed.protocol !== 'http:' && parsed.protocol !== 'https:') {
+          setErrorMessage('Tautan harus diawali dengan https:// atau http://.');
+          return;
+        }
+      } catch {
+        setErrorMessage('Format tautan tidak valid. Contoh: https://heyzine.com/flip-book/...');
+        return;
+      }
+    }
+    if (!selectedFile && !trimmedUrl) {
       setErrorMessage('Unggah berkas e-modul atau isi tautan Canva / Heyzine / Google Drive.');
       return;
     }
@@ -477,10 +501,14 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || isReadingFile}
                 className="mt-1 inline-flex min-h-[52px] w-fit items-center justify-center rounded-xl bg-[#2438C9] px-8 text-base font-semibold text-white transition-colors hover:bg-[#1c2da6] disabled:opacity-60 cursor-pointer"
               >
-                {isSubmitting ? 'Mengirim Tugas…' : 'Kirim Tugas'}
+                {isReadingFile
+                  ? 'Memproses Berkas…'
+                  : isSubmitting
+                    ? 'Mengirim Tugas…'
+                    : 'Kirim Tugas'}
               </button>
             </form>
           )}

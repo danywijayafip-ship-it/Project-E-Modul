@@ -202,10 +202,10 @@ async function startServer(): Promise<void> {
         format,
         targetAudience,
         status: 'Dalam Tinjauan',
-        externalUrl: externalUrl ?? modules[existingIndex].externalUrl,
-        fileName: savedFileName ?? modules[existingIndex].fileName,
-        fileSizeLabel: savedFileSizeLabel ?? modules[existingIndex].fileSizeLabel,
-        fileUrl: savedFileUrl ?? modules[existingIndex].fileUrl,
+        externalUrl,
+        fileName: savedFileName,
+        fileSizeLabel: savedFileSizeLabel,
+        fileUrl: savedFileUrl,
         submittedAt: nowIso,
       };
       modules.splice(existingIndex, 1);
@@ -309,6 +309,7 @@ async function startServer(): Promise<void> {
       return;
     }
     const ext = path.extname(safeFile).toLowerCase();
+    res.setHeader('X-Content-Type-Options', 'nosniff');
     if (ext === '.pdf') {
       res.setHeader('Content-Type', 'application/pdf');
       res.setHeader('Content-Disposition', `inline; filename="${safeFile}"`);
@@ -317,6 +318,32 @@ async function startServer(): Promise<void> {
     }
     res.sendFile(fullPath);
   });
+
+  app.use(
+    (
+      err: unknown,
+      _req: express.Request,
+      res: express.Response,
+      next: express.NextFunction,
+    ) => {
+      if (
+        err &&
+        typeof err === 'object' &&
+        'type' in err &&
+        (err as { type?: string }).type === 'entity.too.large'
+      ) {
+        res.status(413).json({
+          error: 'Ukuran berkas terlalu besar. Maksimal 15 MB.',
+        });
+        return;
+      }
+      if (err instanceof SyntaxError) {
+        res.status(400).json({ error: 'Format data tidak valid.' });
+        return;
+      }
+      next(err);
+    },
+  );
 
   if (process.env.NODE_ENV !== 'production') {
     const { createServer: createViteServer } = await import('vite');

@@ -34,6 +34,7 @@ export default function App() {
     initialRoute.view,
   );
   const [modules, setModules] = useState<EModuleItem[]>(SEED_MODULES);
+  const [hasLoadedFromServer, setHasLoadedFromServer] = useState(false);
   const [totalCollectedCount, setTotalCollectedCount] = useState<number>(
     BASE_COLLECTION_OFFSET + SEED_MODULES.length,
   );
@@ -57,6 +58,8 @@ export default function App() {
       }
     } catch {
       // Keep seed fallback when static preview runs without API server
+    } finally {
+      setHasLoadedFromServer(true);
     }
   }, []);
 
@@ -66,22 +69,13 @@ export default function App() {
 
   useEffect(() => {
     const syncFromHash = () => {
-      const hash = window.location.hash;
-      if (hash === '#/unggah') {
-        setActiveView('upload');
-        setSelectedModuleId(null);
-      } else if (hash.startsWith('#/emodul/')) {
-        const modId = decodeURIComponent(hash.replace('#/emodul/', ''));
-        setSelectedModuleId(modId);
-        setActiveView('module');
-      } else if (activeView !== 'home') {
-        setActiveView('home');
-        setSelectedModuleId(null);
-      }
+      const route = parseInitialRoute();
+      setActiveView(route.view);
+      setSelectedModuleId(route.moduleId);
     };
     window.addEventListener('hashchange', syncFromHash);
     return () => window.removeEventListener('hashchange', syncFromHash);
-  }, [activeView]);
+  }, []);
 
   const scrollToSection = useCallback((sectionId?: string) => {
     if (!sectionId) {
@@ -103,7 +97,13 @@ export default function App() {
       window.location.hash = '#/unggah';
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-      window.location.hash = '';
+      if (window.location.hash) {
+        window.history.pushState(
+          null,
+          '',
+          window.location.pathname + window.location.search,
+        );
+      }
       scrollToSection(sectionId);
     }
   };
@@ -182,14 +182,37 @@ export default function App() {
             onBackToCatalog={() => handleNavigate('home', 'katalog')}
           />
         </div>
-      ) : activeView === 'module' && selectedModule ? (
+      ) : activeView === 'module' ? (
         <div className="flex-1">
-          <ModuleDetailPage
-            module={selectedModule}
-            onBackToCatalog={() => handleNavigate('home', 'katalog')}
-            onEndorse={handleEndorseModule}
-            onUpdateLink={handleUpdateModuleLink}
-          />
+          {selectedModule ? (
+            <ModuleDetailPage
+              key={selectedModule.id}
+              module={selectedModule}
+              onBackToCatalog={() => handleNavigate('home', 'katalog')}
+              onEndorse={handleEndorseModule}
+              onUpdateLink={handleUpdateModuleLink}
+            />
+          ) : !hasLoadedFromServer ? (
+            <div className="mx-auto max-w-3xl px-5 py-24 text-center text-sm text-[#4A5160]">
+              Memuat detail e-modul…
+            </div>
+          ) : (
+            <div className="mx-auto max-w-2xl px-5 py-24 text-center">
+              <h1 className="font-display text-2xl font-bold text-[#14181F]">
+                E-Modul Tidak Ditemukan
+              </h1>
+              <p className="mt-2 text-sm text-[#4A5160]">
+                Karya yang dicari tidak tersedia atau tautan telah berubah.
+              </p>
+              <button
+                type="button"
+                onClick={() => handleNavigate('home', 'katalog')}
+                className="mt-6 inline-flex min-h-[46px] items-center rounded-xl bg-[#2438C9] px-6 text-sm font-bold text-white hover:bg-[#1c2da6] cursor-pointer"
+              >
+                Kembali ke Katalog
+              </button>
+            </div>
+          )}
         </div>
       ) : (
         <main className="flex-1">
