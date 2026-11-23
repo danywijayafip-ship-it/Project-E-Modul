@@ -78,29 +78,29 @@ export function ModuleDetailPage({
   };
 
   return (
-    <main className="mx-auto max-w-6xl px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
+    <main className="mx-auto max-w-6xl px-4 py-6 sm:px-8 sm:py-8 lg:px-12 lg:py-12">
+      <div className="mb-5 flex flex-wrap items-center justify-between gap-3 sm:mb-6">
         <button
           type="button"
           onClick={onBackToCatalog}
-          className="inline-flex items-center gap-2 rounded-lg border border-[#D4D8E6] bg-white px-4 py-2.5 text-sm font-semibold text-[#14181F] transition-colors hover:border-[#2438C9] hover:text-[#2438C9] cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg border border-[#D4D8E6] bg-white px-3.5 py-2 text-xs font-semibold text-[#14181F] transition-colors hover:border-[#2438C9] hover:text-[#2438C9] cursor-pointer sm:px-4 sm:py-2.5 sm:text-sm"
         >
-          <ArrowLeft className="h-4 w-4" />
-          Kembali ke Katalog E-Modul
+          <ArrowLeft className="h-4 w-4 shrink-0" />
+          <span>Kembali ke Katalog</span>
         </button>
 
         <button
           type="button"
           onClick={() => onEndorse(module.id)}
-          className="inline-flex items-center gap-2 rounded-lg border border-[#D4D8E6] bg-white px-4 py-2.5 text-sm font-bold text-[#14181F] transition-colors hover:border-[#C93B5A] hover:text-[#C93B5A] cursor-pointer"
+          className="inline-flex items-center gap-2 rounded-lg border border-[#D4D8E6] bg-white px-3.5 py-2 text-xs font-bold text-[#14181F] transition-colors hover:border-[#C93B5A] hover:text-[#C93B5A] cursor-pointer sm:px-4 sm:py-2.5 sm:text-sm"
         >
-          <Heart className="h-4 w-4 text-[#C93B5A]" />
-          Apresiasi Karya ({module.likes})
+          <Heart className="h-4 w-4 shrink-0 text-[#C93B5A]" />
+          <span>Apresiasi ({module.likes})</span>
         </button>
       </div>
 
-      <article className="overflow-hidden rounded-3xl border border-[#E3E6F0] bg-white shadow-sm">
-        <div className={`${headerBg} p-7 text-white sm:p-10`}>
+      <article className="overflow-hidden rounded-2xl border border-[#E3E6F0] bg-white shadow-sm sm:rounded-3xl">
+        <div className={`${headerBg} p-5 text-white sm:p-10`}>
           <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold tracking-wider text-white/90 uppercase">
             <span className="rounded-md bg-white px-2.5 py-1 font-bold text-[#14181F]">
               {module.topic}
@@ -127,11 +127,11 @@ export function ModuleDetailPage({
           </div>
         </div>
 
-        <div className="flex flex-col gap-8 p-7 sm:p-10">
-          <div className="flex flex-col justify-between gap-5 rounded-2xl border border-[#D4D8E6] bg-[#F7F8FC] p-6 sm:flex-row sm:items-center">
-            <div className="flex flex-col gap-1">
+        <div className="flex flex-col gap-6 p-5 sm:gap-8 sm:p-10">
+          <div className="flex flex-col justify-between gap-4 rounded-2xl border border-[#D4D8E6] bg-[#F7F8FC] p-4 sm:gap-5 sm:p-6 lg:flex-row lg:items-center">
+            <div className="flex min-w-0 flex-col gap-1">
               <span className="inline-flex items-center gap-1.5 text-xs font-bold tracking-wider text-[#2438C9] uppercase">
-                <Link2 className="h-3.5 w-3.5" />
+                <Link2 className="h-3.5 w-3.5 shrink-0" />
                 Akses Halaman Link E-Modul
               </span>
               {module.externalUrl ? (
@@ -139,7 +139,7 @@ export function ModuleDetailPage({
                   {module.externalUrl}
                 </p>
               ) : module.fileUrl ? (
-                <p className="text-sm font-medium text-[#14181F]">
+                <p className="break-words text-sm font-medium text-[#14181F]">
                   Berkas terlampir: {module.fileName}{' '}
                   {module.fileSizeLabel ? `(${module.fileSizeLabel})` : ''}
                 </p>
@@ -155,13 +155,13 @@ export function ModuleDetailPage({
               )}
             </div>
 
-            <div className="flex flex-wrap items-center gap-3 shrink-0">
+            <div className="flex flex-col gap-2.5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-3 shrink-0">
               {module.externalUrl && (
                 <a
                   href={module.externalUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex min-h-[48px] items-center gap-2 rounded-xl bg-[#2438C9] px-6 text-sm font-bold text-white transition-colors hover:bg-[#1c2da6]"
+                  className="inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-xl bg-[#2438C9] px-5 text-sm font-bold text-white transition-colors hover:bg-[#1c2da6] sm:min-h-[48px] sm:w-auto sm:px-6"
                 >
                   Pindah ke Halaman Link
                   <ExternalLink className="h-4 w-4" />

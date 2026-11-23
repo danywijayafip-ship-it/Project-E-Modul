@@ -34,8 +34,8 @@ const RUBRIC_CRITERIA = [
 
 export function AboutProgramSection() {
   return (
-    <section id="tentang" className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-22">
-      <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
+    <section id="tentang" className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-22">
+      <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-14">
         <div className="flex flex-col gap-3.5 lg:col-span-5">
           <span className="text-xs font-semibold tracking-[0.2em] text-[#2438C9] uppercase">
             — TENTANG PROGRAM

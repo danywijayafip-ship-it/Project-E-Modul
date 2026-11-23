@@ -49,9 +49,9 @@ export function CatalogSection({
   return (
     <section
       id="katalog"
-      className="border-y border-[#E3E6F0] bg-white py-16 lg:py-20"
+      className="border-y border-[#E3E6F0] bg-white py-12 sm:py-16 lg:py-20"
     >
-      <div className="mx-auto flex max-w-7xl flex-col gap-7 px-5 sm:px-8 lg:px-12">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:gap-7 sm:px-8 lg:px-12">
         <div className="flex flex-col gap-3">
           <span className="text-xs font-semibold tracking-[0.2em] text-[#2438C9] uppercase">
             — KATALOG
@@ -108,7 +108,7 @@ export function CatalogSection({
           <div
             role="tablist"
             aria-label="Filter Offering Mahasiswa"
-            className="flex flex-wrap items-center gap-2.5"
+            className="flex flex-wrap items-center gap-2 sm:gap-2.5"
           >
             {['Semua', ...OFFERINGS].map((offering) => {
               const isActive = selectedOffering === offering;
@@ -119,7 +119,7 @@ export function CatalogSection({
                   role="tab"
                   aria-selected={isActive}
                   onClick={() => setSelectedOffering(offering)}
-                  className={`min-h-[42px] rounded-lg px-4 text-sm font-semibold transition-colors cursor-pointer ${
+                  className={`min-h-[38px] rounded-lg px-3.5 text-xs font-semibold transition-colors cursor-pointer sm:min-h-[42px] sm:px-4 sm:text-sm ${
                     isActive
                       ? 'bg-[#14181F] text-white'
                       : 'border border-[#D4D8E6] bg-white text-[#14181F] hover:border-[#14181F]'
@@ -175,23 +175,23 @@ export function CatalogSection({
                   <button
                     type="button"
                     onClick={() => onSelectModule(item)}
-                    className={`${coverClass} flex h-36 w-full flex-col justify-between p-4 text-left transition-opacity group-hover:opacity-95 cursor-pointer`}
+                    className={`${coverClass} flex h-34 w-full flex-col justify-between p-4 text-left transition-opacity group-hover:opacity-95 cursor-pointer sm:h-36`}
                   >
                     <div className="flex w-full items-center justify-between gap-2">
-                      <span className="rounded-md bg-white px-2.5 py-1 text-xs font-bold text-[#14181F]">
+                      <span className="max-w-[55%] truncate rounded-md bg-white px-2.5 py-1 text-xs font-bold text-[#14181F]">
                         {item.topic}
                       </span>
-                      <span className="text-[11px] font-semibold tracking-wider text-white/90 uppercase">
+                      <span className="truncate text-[11px] font-semibold tracking-wider text-white/90 uppercase">
                         {item.format}
                       </span>
                     </div>
 
-                    <div className="flex items-end justify-between">
-                      <div className="flex gap-1.5">
-                        <span className="h-2 w-11 rounded bg-white/85" />
-                        <span className="h-2 w-6 rounded bg-white/55" />
+                    <div className="flex items-end justify-between gap-2">
+                      <div className="flex shrink-0 gap-1.5">
+                        <span className="h-2 w-10 rounded bg-white/85 sm:w-11" />
+                        <span className="h-2 w-5 rounded bg-white/55 sm:w-6" />
                       </div>
-                      <span className="font-mono text-[11px] font-semibold text-white/85">
+                      <span className="truncate font-mono text-[11px] font-semibold text-white/85">
                         {item.targetAudience}
                       </span>
                     </div>

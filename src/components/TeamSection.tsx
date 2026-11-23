@@ -10,10 +10,10 @@ export function TeamSection({ onGoToUpload }: TeamSectionProps) {
     <>
       <section
         id="tim"
-        className="mx-auto max-w-7xl px-5 py-16 sm:px-8 lg:px-12 lg:py-22"
+        className="mx-auto max-w-7xl px-4 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-22"
       >
-        <div className="grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className="flex flex-col gap-4 lg:col-span-5">
+        <div className="grid grid-cols-1 gap-8 sm:gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="flex flex-col gap-3 sm:gap-4 lg:col-span-5">
             <span className="text-xs font-semibold tracking-[0.2em] text-[#2438C9] uppercase">
               — TIM PENGAMPU
             </span>
@@ -27,14 +27,14 @@ export function TeamSection({ onGoToUpload }: TeamSectionProps) {
           </div>
 
           <div className="flex flex-col gap-4 lg:col-span-7">
-            <div className="rounded-2xl bg-[#14181F] p-6 text-white sm:p-7">
+            <div className="rounded-2xl bg-[#14181F] p-5 text-white sm:p-7">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-xs font-semibold tracking-[0.18em] text-[#F2A93B] uppercase">
                   DOSEN PENGAMPU
                 </span>
                 <GraduationCap className="h-5 w-5 text-[#F2A93B]" />
               </div>
-              <ul className="mt-3 flex flex-col gap-2 font-display text-xl font-bold sm:text-2xl">
+              <ul className="mt-3 flex flex-col gap-2 font-display text-lg font-bold sm:text-2xl">
                 <li>Dr. Deka Dyah Utami, S.Pd., M.Pd.</li>
                 <li>Dany Wijaya Kesuma, S.Pd., M.Pd.</li>
               </ul>
@@ -71,9 +71,9 @@ export function TeamSection({ onGoToUpload }: TeamSectionProps) {
         </div>
       </section>
 
-      <section id="unggah" className="mx-auto max-w-7xl px-5 pb-16 sm:px-8 lg:px-12 lg:pb-20">
-        <div className="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#2438C9] p-8 text-white sm:p-12 lg:flex-row lg:items-center">
-          <div className="flex max-w-2xl flex-col gap-3">
+      <section id="unggah" className="mx-auto max-w-7xl px-4 pb-12 sm:px-8 sm:pb-16 lg:px-12 lg:pb-20">
+        <div className="flex flex-col items-start justify-between gap-6 rounded-2xl bg-[#2438C9] p-6 text-white sm:gap-8 sm:rounded-3xl sm:p-12 lg:flex-row lg:items-center">
+          <div className="flex max-w-2xl flex-col gap-2.5 sm:gap-3">
             <span className="text-xs font-semibold tracking-[0.2em] text-[#F2D9A6] uppercase">
               — BERSAMA UNTUK BELAJAR
             </span>
@@ -85,7 +85,7 @@ export function TeamSection({ onGoToUpload }: TeamSectionProps) {
           <button
             type="button"
             onClick={onGoToUpload}
-            className="inline-flex min-h-[54px] shrink-0 items-center gap-2 rounded-xl bg-[#F2A93B] px-7 text-sm font-bold tracking-wider text-[#14181F] uppercase transition-transform hover:-translate-y-0.5 hover:bg-[#f5b95b] cursor-pointer"
+            className="inline-flex min-h-[52px] w-full shrink-0 items-center justify-center gap-2 rounded-xl bg-[#F2A93B] px-6 text-sm font-bold tracking-wider text-[#14181F] uppercase transition-transform hover:-translate-y-0.5 hover:bg-[#f5b95b] cursor-pointer sm:min-h-[54px] sm:w-auto sm:px-7"
           >
             UNGGAH E-MODUL SEKARANG
             <ArrowUpRight className="h-4 w-4" />

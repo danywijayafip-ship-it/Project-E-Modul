@@ -172,7 +172,7 @@ export default function App() {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-[#F7F8FC] text-[#14181F]">
+    <div className="flex min-h-screen flex-col overflow-x-clip bg-[#F7F8FC] text-[#14181F]">
       <BrandHeader activeView={activeView} onNavigate={handleNavigate} />
 
       {activeView === 'upload' ? (

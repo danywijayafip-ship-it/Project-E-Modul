@@ -182,9 +182,9 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
   };
 
   return (
-    <main className="mx-auto max-w-7xl px-5 py-10 sm:px-8 lg:px-12 lg:py-14">
-      <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-12">
-        <div className="rounded-2xl border border-[#E3E6F0] bg-white p-6 sm:p-9 lg:col-span-8">
+    <main className="mx-auto max-w-7xl px-4 py-7 sm:px-8 sm:py-10 lg:px-12 lg:py-14">
+      <div className="grid grid-cols-1 items-start gap-6 sm:gap-8 lg:grid-cols-12">
+        <div className="rounded-2xl border border-[#E3E6F0] bg-white p-5 sm:p-9 lg:col-span-8">
           {submittedResult ? (
             <div className="flex flex-col items-start gap-5 py-4">
               <div className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-[#E6F4EC] text-[#0F7B6C]">
@@ -502,7 +502,7 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
               <button
                 type="submit"
                 disabled={isSubmitting || isReadingFile}
-                className="mt-1 inline-flex min-h-[52px] w-fit items-center justify-center rounded-xl bg-[#2438C9] px-8 text-base font-semibold text-white transition-colors hover:bg-[#1c2da6] disabled:opacity-60 cursor-pointer"
+                className="mt-1 inline-flex min-h-[52px] w-full items-center justify-center rounded-xl bg-[#2438C9] px-8 text-base font-semibold text-white transition-colors hover:bg-[#1c2da6] disabled:opacity-60 cursor-pointer sm:w-fit"
               >
                 {isReadingFile
                   ? 'Memproses Berkas…'
@@ -515,7 +515,7 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
         </div>
 
         <aside className="flex flex-col gap-5 lg:col-span-4">
-          <div className="rounded-2xl border border-[#E3E6F0] bg-white p-7">
+          <div className="rounded-2xl border border-[#E3E6F0] bg-white p-5 sm:p-7">
             <h2 className="font-display text-lg font-bold text-[#14181F]">
               Ketentuan
             </h2>
@@ -526,7 +526,7 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
             </ol>
           </div>
 
-          <div className="rounded-2xl bg-[#FFF1D6] p-7 text-[#7A4B00]">
+          <div className="rounded-2xl bg-[#FFF1D6] p-5 text-[#7A4B00] sm:p-7">
             <h2 className="font-display text-lg font-bold">Batas unggah</h2>
             <p className="mt-1.5 text-[15px] font-semibold">
               Minggu ke-16 · 12 Juni 2026, 23.59 WIB
@@ -536,14 +536,14 @@ export function UploadPage({ onSuccessSubmit, onBackToCatalog }: UploadPageProps
             </p>
           </div>
 
-          <div className="rounded-2xl border border-[#E3E6F0] bg-white p-7">
+          <div className="rounded-2xl border border-[#E3E6F0] bg-white p-5 sm:p-7">
             <h2 className="font-display text-lg font-bold text-[#14181F]">
               Format Penamaan Berkas
             </h2>
-            <p className="mt-2 font-mono text-xs leading-relaxed text-[#4A5160]">
+            <p className="mt-2 font-mono text-xs leading-relaxed break-all text-[#4A5160]">
               Offering_NIM_NamaDepan_JudulSingkat.pdf
             </p>
-            <p className="mt-2 text-xs text-[#6A7184]">
+            <p className="mt-2 font-mono text-[11px] break-all text-[#6A7184]">
               Contoh: A2A_240121604108_Nadia_DesainVisual.pdf
             </p>
           </div>
